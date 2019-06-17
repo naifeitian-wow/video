@@ -1,0 +1,124 @@
+<head>
+    <style>
+        iframe{
+            display: block;
+            height:600px;
+            width:80%;
+            margin: 0 auto;
+            margin-top: 50px;
+        }
+        #list{
+            width:80%;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+        }
+         .video{
+            width:180px;
+            height:290px;
+            padding: 10px;
+            position: relative;
+        }
+         .play2{
+            width:70px;
+            height:70px;
+            display: none;
+            float: right;
+            position: absolute;
+            border-radius:50px;
+            top:80px;
+            right:34%;
+        }
+        .play2:hover{
+            cursor: pointer;
+            display:block !important;
+        }
+        hr{
+            width:80%;
+            margin: 0 auto;
+        }
+        .url_list{
+            width:80%;margin: 10px auto;
+            background-color: white;
+
+            line-height: 25px;
+            margin-top:20px;
+            {#border-top:1px solid gray;#}
+        }
+        .jishu{
+            display: inline-block;
+            color:black;
+            width:90px;
+            border:1px solid #bebebe;
+            padding: 5px;
+            text-align: center;
+            text-decoration: none !important;
+            margin: 5px;
+        }
+        .jishu:hover{
+            background-color: black;
+            color:white;
+        }
+        form{
+            display: inline;
+        }
+    </style>
+</head>
+
+{% extends 'base.html' %}
+{% block title %}
+    {{ video.title }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="container" style="background-color:white;margin-bottom: 150px;">
+        <iframe  src="{% if url %}{{ url }}{% else %}{{video.url}}{% endif %}" frameborder="0" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" allowtransparency="true"></iframe>
+        <h3 style="width:80%;margin: 30px auto;">{{ video.title }}</h3>
+        <span style="display: block;width:80%;margin: 0px auto;">类型：{{ video.type }}&#x3000;&#x3000;地区：{{ video.country }}&#x3000;&#x3000;年份：{{ video.year }}</span>
+        <hr>
+        <h3 style="width:80%;margin: 30px auto 10px;">剧情介绍</h3>
+        <span style="display: block;width:80%;margin: 0px auto;">{{ video.story }}</span>
+        <hr>
+        {% if type == 'tv' or type == 'cartoon' or type == 'zongyi' %}
+            {% for url_list in url_lists %}
+                <section class="url_list">
+                <h3>播放地址{{ forloop.counter }}</h3>
+                    {% for url2 in url_list %}
+                        <form action="{% url 'list:video' type video.id %}" method="post">
+                        {% csrf_token %}
+                            {% if type == 'zongyi' %}
+                                <input type="hidden" value="{{ url2.1 }}" name="url">
+                                <input class="jishu" {% if url == url2.1 %}style="background-color: black;color:white;" {% endif %} type="submit" class="url" value="{{ url2.0 }}">
+                            {% else %}
+                                <input type="hidden" value="{{ url2 }}" name="url">
+                                <input class="jishu" {% if url == url2 %}style="background-color: black;color:white;" {% endif %} type="submit" class="url" value="第{{ forloop.counter }}集">
+                            {% endif %}
+                        </form>
+                    {% endfor %}
+                </section>
+            {% endfor %}
+        {% endif %}
+        <section id="xiangguan">
+            <h3 style="width:80%;margin: 10px auto;">相关热播</h3>
+            <div id="list">
+            {% for movie in xiangguanvideo %}
+                <div class="video">
+                    <a href="{% url 'list:detail' type movie.id %}" title="{{ movie.title }}"><img class="play" src="{{ movie.pic }}" alt="" style="width:100%;height: 90%;"></a>
+                    <a href="{% url 'list:detail' type movie.id %}"><img src="/static/images/play.jpg" class="play2"></a>
+                    <a href="{% url 'list:detail' type movie.id %}" style="z-index:999;">{{ movie.title }}</a>
+                </div>
+            {% endfor %}
+            </div>
+        </section>
+    </div>
+    <script>
+        $('.play').hover(function (){
+            $(this).parent().next().children().css('display','inline-block')
+        })
+        $('.play').mouseout(function () {
+            $(this).parent().next().children().css('display','none')
+        })
+    </script>
+{% endblock %}
+

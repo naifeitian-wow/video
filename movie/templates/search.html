@@ -1,0 +1,72 @@
+<head>
+    <style>
+        .list{
+            width: 100%;
+            {#height: 600px;#}
+            display: flex;
+            flex-wrap: wrap;
+            background-color: white;
+            {#justify-content: space-between;#}
+        }
+        .video{
+            width:180px;
+            height:290px;
+            padding: 10px;
+            position: relative;
+        }
+         .play2{
+            width:70px;
+            height:70px;
+            display: none;
+            float: right;
+            position: absolute;
+            border-radius:50px;
+            top:100px;
+            right:34%;
+        }
+        .play2:hover{
+            cursor: pointer;
+            display:block !important;
+        }
+        #type{
+            float: right;
+            position: relative;
+            color:white;
+            top:20px !important;
+        }
+    </style>
+</head>
+{% extends 'base.html' %}
+
+{% block title %}
+    与{{ content }}相关的资源
+{% endblock %}
+
+{% block body %}
+    {% if movie_list %}
+    <div class="container" >
+        <h3>与{{ content }}相关的资源:</h3>
+        <br>
+        <div class="list">
+            {% for movie in movie_list %}
+                <div class="video col-lg-2 col-md-3 col-sm-4">
+                <span id="type">{{ movie.type }}</span>
+                    <a href="{% url 'list:detail' movie.video movie.id %}" title="{{ movie.title }}"><img class="play" src="{{ movie.pic }}" alt="" style="width:100%;height: 90%;"></a>
+                    <a href="{% url 'list:detail' movie.video movie.id %}"><img src="/static/images/play.jpg" class="play2"></a>
+                    <a href="{% url 'list:detail' movie.video movie.id %}" style="z-index:999;">{{ movie.title }}</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% else %}
+        <h2 class="container">对不起，没有此类视频！</h2>
+    {% endif %}
+    <script>
+        $('.play').hover(function (){
+            $(this).parent().next().children().css('display','inline-block')
+        })
+        $('.play').mouseout(function () {
+            $(this).parent().next().children().css('display','none')
+        })
+    </script>
+{% endblock %}

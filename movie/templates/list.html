@@ -1,0 +1,155 @@
+<head>
+    <style>
+        #fenlei{
+            font-size: 15px;
+            margin-bottom: 150px;
+        }
+        a{
+            text-decoration: none !important;
+        }
+        .list{
+            width: 100%;
+            {#height: 600px;#}
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 80px;
+            background-color: white;
+            {#justify-content: space-between;#}
+        }
+        .video{
+            width:180px;
+            height:290px;
+            padding: 10px;
+            position: relative;
+        }
+         .play2{
+            width:70px;
+            height:70px;
+            display: none;
+            float: right;
+            position: absolute;
+            border-radius:50px;
+            top:80px;
+            right:34%;
+        }
+        .play2:hover{
+            cursor: pointer;
+            display:block !important;
+        }
+        #fenlei2>div>a{
+            display: inline-block;
+            padding: 5px 5px;
+            border:1px solid #d4d4d4;
+            color:black;
+        }
+        #fenlei2>div>a:hover{
+            background-color: black;
+            color:white !important;
+        }
+        .select{
+            background-color: black;
+            color:white !important;
+        }
+        .p{
+            display: inline-block;
+            padding: 5px 5px;
+            border:1px solid #d4d4d4;
+            color:black;
+        }
+        #page>a:hover{
+            background-color: black;
+            color:white !important;
+        }
+    </style>
+</head>
+{% extends 'base.html' %}
+{% load blog_tags %}
+
+{% block title %}
+{% if type == 'movie' %}电影大全{% elif type == 'tv' %}电视剧大全{% elif type == 'zongyi' %}综艺大全{% elif type == 'cartoon' %}动漫大全{% endif %}
+{% endblock %}
+
+{% block body %}
+    <section class="container" id="fenlei">
+        {% if type == 'movie' %}
+        <div id="fenlei2">
+            <div>
+                <span>按类型:</span>&#x3000;<a {% if type2 == 'all' %}class="select"{% endif %} href="{% url 'list:list' type 'all' country year 1 %}">全部</a>&#x3000;&#x3000;<a {% if type2 == '喜剧' %}class="select"{% endif %} href="{% url 'list:list' type '喜剧' country year 1 %}">喜剧</a>&#x3000;&#x3000;<a {% if type2 == '动作' %}class="select"{% endif %} href="{% url 'list:list' type '动作' country year 1 %}">动作</a>&#x3000;&#x3000;<a {% if type2 == '爱情' %}class="select"{% endif %} href="{% url 'list:list' type '爱情' country year 1 %}">爱情</a>&#x3000;&#x3000;<a {% if type2 == '纪录' %}class="select"{% endif %} href="{% url 'list:list' type '纪录' country year 1 %}">纪录</a>&#x3000;&#x3000;<a {% if type2 == '剧情' %}class="select"{% endif %} href="{% url 'list:list' type '剧情' country year 1 %}">剧情</a>&#x3000;&#x3000;<a {% if type2 == '科幻' %}class="select"{% endif %} href="{% url 'list:list' type '科幻' country year 1 %}">科幻</a>&#x3000;&#x3000;<a {% if type2 == '恐怖' %}class="select"{% endif %} href="{% url 'list:list' type '恐怖' country year 1 %}">恐怖</a>&#x3000;&#x3000;<a {% if type2 == '奇幻' %}class="select"{% endif %} href="{% url 'list:list' type '奇幻' country year 1 %}">奇幻</a>&#x3000;&#x3000;<a {% if type2 == '悬疑' %}class="select"{% endif %} href="{% url 'list:list' type '悬疑' country year 1 %}">悬疑</a>
+            </div>
+            <div style="margin:10px 0 10px 0 ;">
+                <span>按地区:</span>&#x3000;<a {% if country == 'all' %}class="select"{% endif %} href="{% url 'list:list' type type2 'all' year 1 %}">全部</a>&#x3000;&#x3000;<a {% if country == '大陆' %}class="select"{% endif %}  href="{% url 'list:list' type type2 '大陆' year 1 %}">大陆</a>&#x3000;&#x3000;<a {% if country == '香港' %}class="select"{% endif %}  href="{% url 'list:list' type type2 '香港' year 1 %}">香港</a>&#x3000;&#x3000;<a {% if country == '台湾' %}class="select"{% endif %}  href="{% url 'list:list' type type2 '台湾' year 1 %}">台湾</a>&#x3000;&#x3000;<a {% if country == '美国' %}class="select"{% endif %}  href="{% url 'list:list' type type2 '美国' year 1 %}">美国</a>&#x3000;&#x3000;<a {% if country == '法国' %}class="select"{% endif %}  href="{% url 'list:list' type type2 '法国' year 1 %}">法国</a>&#x3000;&#x3000;<a
+                    {% if country == '英国' %}class="select"{% endif %}  href="{% url 'list:list' type type2 '英国' year 1 %}">英国</a>&#x3000;&#x3000;<a {% if country == '日本' %}class="select"{% endif %}  href="{% url 'list:list' type type2 '日本' year 1 %}">日本</a>&#x3000;&#x3000;<a {% if country == '韩国' %}class="select"{% endif %}  href="{% url 'list:list' type type2 '韩国' year 1 %}">韩国</a>&#x3000;&#x3000;<a {% if country == '德国' %}class="select"{% endif %}  href="{% url 'list:list' type type2 '德国' year 1 %}">德国</a>&#x3000;&#x3000;<a {% if country == '泰国' %}class="select"{% endif %}  href="{% url 'list:list' type type2 '泰国' year 1 %}">泰国</a>&#x3000;&#x3000;<a {% if country == '意大利' %}class="select"{% endif %}  href="{% url 'list:list' type type2 '意大利' year 1 %}">意大利</a>
+            </div>
+            <div>
+                <span>按时间:</span>&#x3000;<a {% if year == 'all' %}class="select"{% endif %} href="{% url 'list:list' type type2 country 'all' 1 %}">全部</a>&#x3000;&#x3000;<a {% if year == '2018' %}class="select"{% endif %}  href="{% url 'list:list' type type2 country '2018' 1 %}">2018</a>&#x3000;&#x3000;<a {% if year == '2017' %}class="select"{% endif %}  href="{% url 'list:list' type type2 country '2017' 1 %}">2017</a>&#x3000;&#x3000;<a {% if year == '2016' %}class="select"{% endif %}  href="{% url 'list:list' type type2 country '2016' 1 %}">2016</a>&#x3000;&#x3000;<a {% if year == '2015' %}class="select"{% endif %}  href="{% url 'list:list' type type2 country '2015' 1 %}">2015</a>&#x3000;&#x3000;<a {% if year == '2014' %}class="select"{% endif %}  href="{% url 'list:list' type type2 country '2014' 1 %}">2014</a>&#x3000;&#x3000;<a {% if year == '2013' %}class="select"{% endif %}  href="{% url 'list:list' type type2 country '2013' 1 %}">2013</a>&#x3000;&#x3000;<a {% if year == '2012' %}class="select"{% endif %}  href="{% url 'list:list' type type2 country '2012' 1 %}">2012</a>&#x3000;&#x3000;<a {% if year == '2011' %}class="select"{% endif %}  href="{% url 'list:list' type type2 country '2011' 1 %}">2011</a>&#x3000;&#x3000;<a {% if year == '2010' %}class="select"{% endif %}  href="{% url 'list:list' type type2 country '2010' 1 %}">2010</a>
+            </div>
+        </div>
+        {% elif type == 'tv' %}
+        <div>
+            <div style="margin:10px 0 10px 0 ;">
+                <span>按地区:</span>&#x3000;<a {% if country == 'all' %}class="select"{% endif %} href="{% url 'list:list' type type2 'all' year 1 %}">全部</a>&#x3000;&#x3000;<a {% if country == '大陆' %}class="select"{% endif %}  href="{% url 'list:list' type type2 '大陆' year 1 %}">大陆</a>&#x3000;&#x3000;<a {% if country == '香港' %}class="select"{% endif %}  href="{% url 'list:list' type type2 '香港' year 1 %}">香港</a>&#x3000;&#x3000;<a {% if country == '台湾' %}class="select"{% endif %}  href="{% url 'list:list' type type2 '台湾' year 1 %}">台湾</a>&#x3000;&#x3000;<a {% if country == '美国' %}class="select"{% endif %}  href="{% url 'list:list' type type2 '美国' year 1 %}">美国</a>&#x3000;&#x3000;<a {% if country == '法国' %}class="select"{% endif %}  href="{% url 'list:list' type type2 '法国' year 1 %}">法国</a>&#x3000;&#x3000;<a
+                    {% if country == '英国' %}class="select"{% endif %}  href="{% url 'list:list' type type2 '英国' year 1 %}">英国</a>&#x3000;&#x3000;<a {% if country == '日本' %}class="select"{% endif %}  href="{% url 'list:list' type type2 '日本' year 1 %}">日本</a>&#x3000;&#x3000;<a {% if country == '韩国' %}class="select"{% endif %}  href="{% url 'list:list' type type2 '韩国' year 1 %}">韩国</a>&#x3000;&#x3000;<a {% if country == '德国' %}class="select"{% endif %}  href="{% url 'list:list' type type2 '德国' year 1 %}">德国</a>&#x3000;&#x3000;<a {% if country == '泰国' %}class="select"{% endif %}  href="{% url 'list:list' type type2 '泰国' year 1 %}">泰国</a>&#x3000;&#x3000;<a {% if country == '意大利' %}class="select"{% endif %}  href="{% url 'list:list' type type2 '意大利' year 1 %}">意大利</a>
+            </div>
+            <div>
+                <span>按时间:</span>&#x3000;<a {% if year == 'all' %}class="select"{% endif %} href="{% url 'list:list' type type2 country 'all' 1 %}">全部</a>&#x3000;&#x3000;<a {% if year == '2018' %}class="select"{% endif %}  href="{% url 'list:list' type type2 country '2018' 1 %}">2018</a>&#x3000;&#x3000;<a {% if year == '2017' %}class="select"{% endif %}  href="{% url 'list:list' type type2 country '2017' 1 %}">2017</a>&#x3000;&#x3000;<a {% if year == '2016' %}class="select"{% endif %}  href="{% url 'list:list' type type2 country '2016' 1 %}">2016</a>&#x3000;&#x3000;<a {% if year == '2015' %}class="select"{% endif %}  href="{% url 'list:list' type type2 country '2015' 1 %}">2015</a>&#x3000;&#x3000;<a {% if year == '2014' %}class="select"{% endif %}  href="{% url 'list:list' type type2 country '2014' 1 %}">2014</a>&#x3000;&#x3000;<a {% if year == '2013' %}class="select"{% endif %}  href="{% url 'list:list' type type2 country '2013' 1 %}">2013</a>&#x3000;&#x3000;<a {% if year == '2012' %}class="select"{% endif %}  href="{% url 'list:list' type type2 country '2012' 1 %}">2012</a>&#x3000;&#x3000;<a {% if year == '2011' %}class="select"{% endif %}  href="{% url 'list:list' type type2 country '2011' 1 %}">2011</a>&#x3000;&#x3000;<a {% if year == '2010' %}class="select"{% endif %}  href="{% url 'list:list' type type2 country '2010' 1 %}">2010</a>
+            </div>
+        </div>
+        {% elif type == 'zongyi' %}
+        <div>
+            <div style="margin:10px 0 10px 0 ;">
+                <span>按地区:</span>&#x3000;<a {% if country == 'all' %}class="select"{% endif %} href="{% url 'list:list' type type2 'all' year 1 %}">全部</a>&#x3000;&#x3000;<a {% if country == '大陆' %}class="select"{% endif %}  href="{% url 'list:list' type type2 '大陆' year 1 %}">大陆综艺</a>&#x3000;&#x3000;<a {% if country == '韩国' %}class="select"{% endif %}  href="{% url 'list:list' type type2 '韩国' year 1 %}">韩国</a>&#x3000;&#x3000;<a {% if country == '台湾' %}class="select"{% endif %}  href="{% url 'list:list' type type2 '台湾' year 1 %}">台湾</a>
+            </div>
+            <div>
+                <span>按时间:</span>&#x3000;<a {% if year == 'all' %}class="select"{% endif %} href="{% url 'list:list' type type2 country 'all' 1 %}">全部</a>&#x3000;&#x3000;<a {% if year == '2018' %}class="select"{% endif %}  href="{% url 'list:list' type type2 country '2018' 1 %}">2018</a>&#x3000;&#x3000;<a {% if year == '2017' %}class="select"{% endif %}  href="{% url 'list:list' type type2 country '2017' 1 %}">2017</a>&#x3000;&#x3000;<a {% if year == '2016' %}class="select"{% endif %}  href="{% url 'list:list' type type2 country '2016' 1 %}">2016</a>&#x3000;&#x3000;<a {% if year == '2015' %}class="select"{% endif %}  href="{% url 'list:list' type type2 country '2015' 1 %}">2015</a>&#x3000;&#x3000;<a {% if year == '2014' %}class="select"{% endif %}  href="{% url 'list:list' type type2 country '2014' 1 %}">2014</a>&#x3000;&#x3000;<a {% if year == '2013' %}class="select"{% endif %}  href="{% url 'list:list' type type2 country '2013' 1 %}">2013</a>&#x3000;&#x3000;<a {% if year == '2012' %}class="select"{% endif %}  href="{% url 'list:list' type type2 country '2012' 1 %}">2012</a>&#x3000;&#x3000;<a {% if year == '2011' %}class="select"{% endif %}  href="{% url 'list:list' type type2 country '2011' 1 %}">2011</a>&#x3000;&#x3000;<a {% if year == '2010' %}class="select"{% endif %}  href="{% url 'list:list' type type2 country '2010' 1 %}">2010</a>
+            </div>
+        </div>
+        {% elif type == 'cartoon' %}
+        <div>
+            <div style="margin:10px 0 10px 0 ;">
+                <span>按地区:</span>&#x3000;<a {% if country == 'all' %}class="select"{% endif %} href="{% url 'list:list' type type2 'all' year 1 %}">全部</a>&#x3000;&#x3000;<a {% if country == '大陆' %}class="select"{% endif %}  href="{% url 'list:list' type type2 '大陆' year 1 %}">国产</a>&#x3000;&#x3000;<a {% if country == '日本' %}class="select"{% endif %}  href="{% url 'list:list' type type2 '日本' year 1 %}">日本</a>&#x3000;&#x3000;<a {% if country == '欧美' %}class="select"{% endif %}  href="{% url 'list:list' type type2 '欧美' year 1 %}">欧美</a>&#x3000;&#x3000;<a {% if country == '美国' %}class="select"{% endif %}  href="{% url 'list:list' type type2 '美国' year 1 %}">美国</a>&#x3000;&#x3000;
+                    <a {% if country == '韩国' %}class="select"{% endif %}  href="{% url 'list:list' type type2 '韩国' year 1 %}">韩国</a>&#x3000;&#x3000;<a {% if country == '德国' %}class="select"{% endif %}  href="{% url 'list:list' type type2 '德国' year 1 %}">德国</a>&#x3000;&#x3000;<a {% if country == '泰国' %}class="select"{% endif %}  href="{% url 'list:list' type type2 '泰国' year 1 %}">泰国</a>&#x3000;&#x3000;<a {% if country == '其它' %}class="select"{% endif %}  href="{% url 'list:list' type type2 '其它' year 1 %}">其它</a>
+            </div>
+            <div>
+                <span>按时间:</span>&#x3000;<a {% if year == 'all' %}class="select"{% endif %} href="{% url 'list:list' type type2 country 'all' 1 %}">全部</a>&#x3000;&#x3000;<a {% if year == '2018' %}class="select"{% endif %}  href="{% url 'list:list' type type2 country '2018' 1 %}">2018</a>&#x3000;&#x3000;<a {% if year == '2017' %}class="select"{% endif %}  href="{% url 'list:list' type type2 country '2017' 1 %}">2017</a>&#x3000;&#x3000;<a {% if year == '2016' %}class="select"{% endif %}  href="{% url 'list:list' type type2 country '2016' 1 %}">2016</a>&#x3000;&#x3000;<a {% if year == '2015' %}class="select"{% endif %}  href="{% url 'list:list' type type2 country '2015' 1 %}">2015</a>&#x3000;&#x3000;<a {% if year == '2014' %}class="select"{% endif %}  href="{% url 'list:list' type type2 country '2014' 1 %}">2014</a>&#x3000;&#x3000;<a {% if year == '2013' %}class="select"{% endif %}  href="{% url 'list:list' type type2 country '2013' 1 %}">2013</a>&#x3000;&#x3000;<a {% if year == '2012' %}class="select"{% endif %}  href="{% url 'list:list' type type2 country '2012' 1 %}">2012</a>&#x3000;&#x3000;<a {% if year == '2011' %}class="select"{% endif %}  href="{% url 'list:list' type type2 country '2011' 1 %}">2011</a>&#x3000;&#x3000;<a {% if year == '2010' %}class="select"{% endif %}  href="{% url 'list:list' type type2 country '2010' 1 %}">2010</a>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="list">
+            {% for movie in page %}
+                <div class="video col-lg-2 col-md-3 col-sm-3">
+                    <a href="{% url 'list:detail' type movie.id %}" title="{{ movie.title }}"><img class="play" src="{{ movie.pic }}" alt="" style="width:100%;height: 90%;"></a>
+                    <a href="{% url 'list:detail' type movie.id %}"><img src="/static/images/play.jpg" class="play2"></a>
+                    <a href="{% url 'list:detail' type movie.id %}" style="z-index:999;">{{ movie.title }}</a>
+                </div>
+            {% endfor %}
+        </div>
+        {% if all_movies.count > 36 %}
+                <div id="page" style="font-size: 20px; margin-top: 30px;text-align: center">
+                    <a class="p" href="{% url 'list:list' type type2 country year 1 %}">首页</a>
+                {% if page.has_previous %}
+                    <a class="p" href="{% url 'list:list' type type2 country year page.previous_page_number %}">上一页</a>
+                {% endif %}
+
+                {% for num in page.paginator.page_range %}
+                    {% circle_page page_num num type type2 country year %}
+                {% endfor %}
+
+				{% if page.has_next %}
+                    <a class="p" href="{% url 'list:list' type type2 country year page.next_page_number %}">下一页</a>
+                {% endif %}
+                <a class="p" href="{% url 'list:list' type type2 country year page.paginator.num_pages %}">尾页</a>
+            </div>
+            {% endif %}
+    </section>
+    <script>
+        $('.play').hover(function (){
+            $(this).parent().next().children().css('display','inline-block')
+        })
+        $('.play').mouseout(function () {
+            $(this).parent().next().children().css('display','none')
+        })
+
+
+    </script>
+{% endblock %}

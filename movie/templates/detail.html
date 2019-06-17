@@ -1,0 +1,166 @@
+<head>
+    <style>
+        #detail{
+            width:100%;
+            height: 300px;
+            background-color: white;
+            display: flex;
+        }
+        #img{
+            width:200px;
+        }
+        #xinxi{
+            margin-left:50px;
+            line-height: 30px;
+            {#font-size: 18px;#}
+        }
+        #jianjie{
+            width: 100%;
+            min-height: 100px;
+            margin-top: 30px;
+            background-color: white;
+            padding:5px 20px 20px 20px;
+            line-height: 25px;
+        }
+        .list{
+            width: 100%;
+            {#height: 600px;#}
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 80px;
+            background-color: white;
+            {#justify-content: space-between;#}
+        }
+        .video{
+            max-width:180px;
+            max-height:290px;
+            padding: 10px;
+            position: relative;
+        }
+         .play2{
+            width:70px;
+            height:70px;
+            display: none;
+            float: right;
+            position: absolute;
+            border-radius:50px;
+            top:80px;
+            right:34%;
+        }
+        .play2:hover{
+            cursor: pointer;
+            display:block !important;
+        }
+        @media (max-width: 600px) {
+             #img{
+                width:120px !important;
+            }
+            #detail{
+            width:100%;
+            height: 220px;
+            background-color: white;
+            display: flex;
+        }
+        }
+        .url_list{
+            width: 100%;
+            background-color: white;
+            padding:5px 20px 20px 20px;
+            line-height: 25px;
+            margin-top:20px;
+            {#border-top:1px solid gray;#}
+        }
+        .jishu{
+            display: inline-block;
+            color:black;
+            width:90px;
+            border:1px solid #bebebe;
+            padding: 5px;
+            text-align: center;
+            text-decoration: none !important;
+            margin: 5px;
+        }
+        .jishu:hover{
+            background-color: black;
+            color:white;
+        }
+        form{
+            display: inline;
+        }
+    </style>
+</head>
+{% extends 'base.html' %}
+{% load blog_tags %}
+
+{% block title %}
+    {% if video != '' %} {{ video.title }}{% else %}没有此视频 {% endif %}
+{% endblock %}
+
+
+{% block body %}
+{% if video != '' %}
+    <div class="container">
+        <section id="detail">
+            <div id="img"><img style="width:100%;height: 90%;margin-top:5%;margin-left: 20px;" src="{{ video.pic }}" alt=""></div>
+            <div id="xinxi">
+                <h3>{{ video.title }}</h3>
+                <span>导演：{{ video.director }}</span><br>
+                <span>主演：{{ video.zhuyan }}</span><br>
+                <span>分类：{{ video.type }}</span>&#x3000;&#x3000;<span>地区：{{ video.country }}</span>&#x3000;&#x3000;<span>年份：{{ video.year }}</span><br>
+                <a href="{% url 'list:video' type video.id %}" class="btn btn-success">立即播放</a>
+            </div>
+        </section>
+        <section id="jianjie">
+            <h3>剧情简介：</h3>
+            <span>{{ video.story }}</span>
+        </section>
+        {% if type == 'tv' or type == 'cartoon' or type == 'zongyi' %}
+            {% for url_list in url_lists %}
+                <section class="url_list">
+                <h3>播放地址{{ forloop.counter }}</h3>
+                    {% for url in url_list %}
+                        <form action="{% url 'list:video' type video.id %}" method="post">
+                        {% csrf_token %}
+                            {% if type == 'zongyi' %}
+                                <input type="hidden" value="{{ url.1 }}" name="url">
+                                <input class="jishu" type="submit" class="url" value="{{ url.0 }}">
+                            {% else %}
+                            <input type="hidden" value="{{ url }}" name="url">
+                            <input class="jishu" type="submit" class="url" value="第{{ forloop.counter }}集">
+                            {% endif %}
+                        </form>
+                    {% endfor %}
+                </section>
+            {% endfor %}
+        {% endif %}
+        <section id="xiangguan">
+            <h3>相关热播</h3>
+            <div class="list">
+            {% for movie in xiangguanvideo %}
+                <div class="video col-lg-2 col-md-3 col-sm-4">
+                    <a href="{% url 'list:detail' type movie.id %}" title="{{ movie.title }}"><img class="play" src="{{ movie.pic }}" alt="" style="width:100%;height: 90%;"></a>
+                    <a href="{% url 'list:detail' type movie.id %}"><img src="/static/images/play.jpg" class="play2"></a>
+                    <a href="{% url 'list:detail' type movie.id %}" style="z-index:999;">{{ movie.title }}</a>
+                </div>
+            {% endfor %}
+        </div>
+        </section>
+
+
+    </div>
+
+    <script>
+        $('.play').hover(function (){
+            $(this).parent().next().children().css('display','inline-block')
+        })
+        $('.play').mouseout(function () {
+            $(this).parent().next().children().css('display','none')
+        })
+
+    </script>
+{% else %}
+    <h1 class="container" style="margin-top:50px ;">没有此视频</h1>
+
+{% endif %}
+{% endblock %}
+

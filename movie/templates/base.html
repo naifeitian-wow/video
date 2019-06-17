@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
+	<link rel="stylesheet" type="text/css" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/css/bootstrap-theme.css">
+{#    <link rel="stylesheet" href="/static/css/dcalendar.picker.css">#}
+    <link rel="stylesheet" href="/static/css/animate.css">
+    <title>{% block title %}奈非天影视{% endblock%}</title>
+    <style>
+        html{
+            background-color: #ebebeb;
+        }
+        body{
+            background-color: #ebebeb;
+        }
+        @media (max-width:1200px){
+            #head{
+                width: 100% !important;
+            }
+        }
+    </style>
+</head>
+<body>
+   <nav class="navbar navbar-inverse" id="head" role="navigation">
+    <div class="container">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse"
+                data-target="#example-navbar-collapse">
+            <span class="sr-only">切换导航</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">奈非天影视</a>
+    </div>
+    <div class="collapse navbar-collapse" id="example-navbar-collapse">
+        <ul class="nav navbar-nav">
+            <li {% if not type %}class="active" {% endif %}><a href="/">首页</a></li>
+            <li {% if type == 'movie' %} class="active" {% endif %}><a href="{% url 'list:type' 'movie' %}">电影</a></li>
+            <li {% if type == 'tv' %} class="active" {% endif %}><a href="{% url 'list:type' 'tv' %}">电视剧</a></li>
+            <li {% if type == 'zongyi' %} class="active" {% endif %}><a href="{% url 'list:type' 'zongyi' %}">综艺</a></li>
+            <li {% if type == 'cartoon' %} class="active" {% endif %}><a href="{% url 'list:type' 'cartoon'%}">动漫</a></li>
+            <form action="/search/" method="POST" class="navbar-form navbar-left" role="search">
+            {% csrf_token %}
+                <div class="form-group">
+                    <input name="content" id="content" type="text" class="form-control" placeholder="请输入关键字进行查询">
+                </div>
+                <button type="submit" onclick="return search()" class="btn btn-default">搜索</button>
+            </form>
+            <li><a>交流群：869914973</a></li>
+        </ul>
+    </div>
+    </div>
+</nav>
+
+    <script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript" src="/static/js/register.js"></script>
+    <script type="text/javascript" src="/static/js/login.js"></script>
+    <script src="/static/js/jquery.js"></script>
+    <script src="/static/js/bootstrap.js"></script>
+   <script>
+       function search() {
+           if($('#content').val() == ''){
+               return false
+           }
+           else{
+               return true
+           }
+       }
+   </script>
+    {% block body %}
+    {% endblock %}
+</body>
+</html>

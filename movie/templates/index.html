@@ -1,0 +1,159 @@
+<head>
+    <style>
+        html{
+            background-color: #ebebeb;
+        }
+        body{
+            background-color: #ebebeb;
+        }
+        #body1{
+            background-color: white;
+            {#width: 100%;#}
+            margin-bottom:150px;
+        }
+        .section{
+            margin-top:10px;
+            width: 100%;
+            border-bottom: 2px solid gray;
+        }
+        .new{
+            width: 100%;
+            {#height: 600px;#}
+            display: flex;
+            flex-wrap: wrap;
+            {#justify-content: space-between;#}
+        }
+        .video{
+            width:180px;
+            height:290px;
+            padding: 10px;
+            position: relative;
+        }
+        #biaoqian{
+            float:right;
+            margin-right:5px;
+        }
+        .biaoqian{
+            display: inline-block;
+            margin-right:10px;
+            text-decoration: none !important;
+        }
+        .biaoqian:hover{
+            background-color: black;
+            color:white;
+        }
+        .play2{
+            width:70px;
+            height:70px;
+            display: none;
+            float: right;
+            position: absolute;
+            border-radius:50px;
+            top:90px;
+            right:33%;
+        }
+        .play2:hover{
+            cursor: pointer;
+            display: block !important;
+        }
+        
+    </style>
+</head>
+{% extends 'base.html' %}
+
+{% block body %}
+    <div class="container" id="body1">
+        <section class="section">
+            <span style="font-size:30px;">最新电影</span>
+            <a href="{% url 'list:list'  'movie' 'all' 'all' 'all' 1 %}" style="float:right;font-size: 15px;">更多>></a>&#x3000;
+           <span id="biaoqian">
+                <a href="{% url 'list:list' 'movie' '动作' 'all' 'all' 1 %}" class="biaoqian">动作片</a>/
+                <a href="{% url 'list:list' 'movie' '喜剧' 'all' 'all' 1 %}" class="biaoqian">喜剧片</a>/
+                <a href="{% url 'list:list' 'movie' '爱情' 'all' 'all' 1 %}" class="biaoqian">爱情片</a>/
+                <a href="{% url 'list:list' 'movie' '科幻' 'all' 'all' 1 %}" class="biaoqian">科幻片</a>/
+                <a href="{% url 'list:list' 'movie' '恐怖' 'all' 'all' 1 %}" class="biaoqian">恐怖片</a>/
+           </span>
+
+            <div class="new">
+                {% for movie in new_movies %}
+                    <div class="video col-lg-2 col-md-3 col-sm-4">
+                        <a href="{% url 'list:detail' 'movie' movie.id %}"><img class="play" src="{{ movie.pic }}" alt="" style="width:100%;height: 90%;"></a>
+                        <a href="{% url 'list:detail' 'movie' movie.id %}"><img src="/static/images/play.jpg" class="play2"></a>
+                        <span>{{ movie.title }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+        <section class="section">
+            <span style="font-size:30px;">最新电视剧</span>
+            <a href="{% url 'list:list' 'tv' 'all' 'all' 'all' 1 %}" style="float:right;font-size: 15px;">更多>></a>&#x3000;
+           <span id="biaoqian">
+                <a href="{% url 'list:list' 'tv' 'all' '大陆' 'all' 1 %}" class="biaoqian">国产剧</a>/
+                <a href="{% url 'list:list' 'tv' 'all' '日本' 'all' 1 %}" class="biaoqian">日本片</a>/
+                <a href="{% url 'list:list' 'tv' 'all' '韩国' 'all' 1 %}" class="biaoqian">韩国片</a>/
+                <a href="{% url 'list:list' 'tv' '欧美' 'all' 'all' 1 %}" class="biaoqian">欧美剧</a>/
+                <a href="{% url 'list:list' 'tv' 'all' '香港' 'all' 1 %}" class="biaoqian">香港剧</a>/
+           </span>
+
+            <div class="new">
+                {% for movie in new_tvs %}
+                    <div class="video col-lg-2 col-md-3 col-sm-4">
+                        <a href="{% url 'list:detail' 'tv' movie.id %}"><img class="play" src="{{ movie.pic }}" alt="" style="width:100%;height: 90%;"></a>
+                        <a href="{% url 'list:detail' 'tv' movie.id %}"><img src="/static/images/play.jpg" class="play2"></a>
+                        <span>{{ movie.title }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+        <section class="section">
+            <span style="font-size:30px;">最新综艺</span>
+            <a href="{% url 'list:list' 'zongyi' 'all' 'all' 'all' 1 %}" style="float:right;font-size: 15px;">更多>></a>&#x3000;
+           <span id="biaoqian">
+                <a href="{% url 'list:list' 'zongyi' 'all' '大陆' 'all' 1 %}" class="biaoqian">大陆综艺</a>/
+                <a href="{% url 'list:list' 'zongyi' 'all' '韩国' 'all' 1 %}" class="biaoqian">韩国综艺</a>/
+                <a href="{% url 'list:list' 'zongyi' 'all' '台湾' 'all' 1 %}" class="biaoqian">台湾综艺</a>/
+
+           </span>
+
+            <div class="new">
+                {% for movie in new_zongyis %}
+                    <div class="video col-lg-2 col-md-3 col-sm-4">
+                        <a href="{% url 'list:detail' 'zongyi' movie.id %}"><img class="play" src="{{ movie.pic }}" alt="" style="width:100%;height: 90%;"></a>
+                        <a href="{% url 'list:detail' 'zongyi' movie.id %}"><img src="/static/images/play.jpg" class="play2"></a>
+                        <span>{{ movie.title }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+        <section class="section">
+            <span style="font-size:30px;">最新动漫</span>
+            <a href="{% url 'list:list' 'cartoon' 'all' 'all' 'all' 1 %}" style="float:right;font-size: 15px;">更多>></a>&#x3000;
+           <span id="biaoqian">
+                <a href="{% url 'list:list' 'cartoon' '国产动漫' 'all' 'all' 1 %}" class="biaoqian">国产动漫</a>/
+                <a href="{% url 'list:list' 'cartoon' 'all' '日本' 'all' 1 %}" class="biaoqian">日本动漫</a>/
+                <a href="{% url 'list:list' 'cartoon' 'all' '欧美' 'all' 1 %}" class="biaoqian">欧美</a>/
+                <a href="{% url 'list:list' 'cartoon' 'all' '美国' 'all' 1 %}" class="biaoqian">美国</a>/
+                <a href="{% url 'list:list' 'cartoon' 'all' '其它' 'all' 1 %}" class="biaoqian">其它</a>/
+           </span>
+
+            <div class="new">
+                {% for movie in new_cartoons %}
+                    <div class="video col-lg-2 col-md-3 col-sm-4">
+                        <a href="{% url 'list:detail' 'cartoon' movie.id %}"><img class="play" src="{{ movie.pic }}" alt="" style="width:100%;height: 90%;"></a>
+                        <a href="{% url 'list:detail' 'cartoon' movie.id %}"><img src="/static/images/play.jpg" class="play2"></a>
+                        <span>{{ movie.title }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+    <script>
+        $('.play').hover(function (){
+            $(this).parent().next().children().css('display','block')
+        })
+        $('.play').mouseout(function () {
+            $(this).parent().next().children().css('display','none')
+        })
+
+    </script>
+{% endblock %}
